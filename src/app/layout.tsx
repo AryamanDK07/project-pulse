@@ -1,0 +1,16 @@
+import './globals.css';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Project Pulse',
+  description: 'Academic project governance, originality and milestone risk monitor',
+  icons: { icon: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y=".9em" font-size="90">📊</text></svg>' },
+};
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="en" className="scroll-smooth">
+      <body className="min-h-screen bg-paper antialiased">{children}</body>
+    </html>
+  );
+}
