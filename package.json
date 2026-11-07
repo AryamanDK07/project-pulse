@@ -11,9 +11,16 @@
     "db:migrate": "node --env-file=.env.local scripts/migrate.mjs",
     "db:seed": "node --env-file=.env.local scripts/migrate.mjs --seed",
     "db:reset": "node --env-file=.env.local scripts/migrate.mjs --reset --seed",
-    "db:embed": "tsx --env-file=.env.local scripts/embed-existing.ts"
+    "db:embed": "tsx --env-file=.env.local scripts/embed-existing.ts",
+    "db:reembed": "tsx --env-file=.env.local scripts/embed-existing.ts --all",
+    "mongo:init": "node --env-file=.env.local scripts/mongo-init.mjs",
+    "setup": "npm run db:reset && npm run db:embed && npm run mongo:init -- --reset",
+    "test:db": "node --env-file=.env.local scripts/db-tests.mjs",
+    "test:api": "node --env-file=.env.local scripts/api-tests.mjs",
+    "docs:dictionary": "node --env-file=.env.local scripts/gen-data-dictionary.mjs"
   },
   "dependencies": {
+    "@huggingface/transformers": "^3.7.6",
     "jose": "^5.9.6",
     "mongoose": "^8.9.0",
     "next": "^15.1.0",
@@ -33,5 +40,7 @@
     "tsx": "^4.19.2",
     "typescript": "^5.7.2"
   },
-  "engines": { "node": ">=20.6" }
+  "engines": {
+    "node": ">=20.6"
+  }
 }

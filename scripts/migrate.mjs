@@ -5,7 +5,12 @@ import { fileURLToPath } from 'node:url';
 import pg from 'pg';
 
 const root = path.join(path.dirname(fileURLToPath(import.meta.url)), '..', 'db');
-const FILES = ['postgres/schema.sql', 'postgres/pgvector.sql', 'postgres/advanced.sql'];
+const FILES = [
+  'postgres/schema.sql',                    // 001 CREATE: tables, constraints, indexes
+  'postgres/pgvector.sql',                  // 002 CREATE: vector table, HNSW index, k-NN function
+  'postgres/advanced.sql',                  // 003 CREATE: functions, procedure, triggers, view
+  'postgres/004_governance_extensions.sql', // 004 ALTER + DROP: schema evolution
+];
 const args = new Set(process.argv.slice(2));
 
 if (!process.env.DATABASE_URL) { console.error('DATABASE_URL is not set (.env.local)'); process.exit(1); }
