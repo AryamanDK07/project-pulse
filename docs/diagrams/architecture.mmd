@@ -1,0 +1,22 @@
+flowchart LR
+  subgraph Browser["Browser — Next.js React UI"]
+    S[Student workspace]
+    F[Faculty guide dashboard]
+    R[Reviewer workspace]
+    A[Coordinator / Admin]
+  end
+  subgraph Server["Next.js server — Route Handlers (/api/*)"]
+    AUTH["Auth: JWT HttpOnly cookie\nrole + ownership checks"]
+    API["proposals · teams · milestones · tasks\nfeedback · reviews · contributions\nrisk-dashboard · reports · users"]
+    EMB["Embedding service\nall-MiniLM-L6-v2 (ONNX, local)"]
+  end
+  subgraph PG["PostgreSQL 16"]
+    REL["Relational schema\n25 tables · constraints · triggers\nviews · functions · procedure"]
+    VEC["pgvector\nproject_embeddings vector(384)\nHNSW cosine index"]
+  end
+  MDB[("MongoDB\nsrs_documents · srs_change_log\n$jsonSchema · text index · aggregation")]
+  S & F & R & A -->|fetch JSON| AUTH --> API
+  API -->|"parameterised SQL in transactions"| REL
+  API --> EMB -->|"vector(384)"| VEC
+  API -->|"Mongoose (saga with PG transaction)"| MDB
+  REL -. "document_versions.mongo_version_id" .- MDB

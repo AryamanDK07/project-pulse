@@ -1,0 +1,167 @@
+erDiagram
+  departments ||--o{ users : "employs / enrols"
+  departments ||--o{ courses : offers
+  users ||--o{ user_roles : has
+  roles ||--o{ user_roles : "granted via"
+  courses ||--o{ teams : groups
+  courses ||--o{ course_required_documents : requires
+  teams ||--o{ team_members : has
+  users ||--o{ team_members : "member of"
+  teams ||--|| projects : owns
+  courses ||--o{ projects : "runs in"
+  projects ||--o{ guide_allocations : "guided / reviewed by"
+  users ||--o{ guide_allocations : "allocated as guide or reviewer"
+  projects ||--o{ milestones : "planned into"
+  milestones ||--o{ tasks : "broken into"
+  tasks ||--o{ task_assignments : "assigned through"
+  users ||--o{ task_assignments : works
+  milestones ||--o| deliverables : "submitted as"
+  deliverables ||--o{ document_versions : "versioned as"
+  milestones ||--o{ reviews : "reviewed in"
+  users ||--o{ reviews : writes
+  reviews |o--o{ feedback_items : raises
+  milestones |o--o{ feedback_items : "about"
+  projects ||--o{ feedback_items : receives
+  users |o--o{ feedback_items : "assigned to"
+  projects ||--o{ contribution_evidence : collects
+  users ||--o{ contribution_evidence : earns
+  projects ||--o{ git_activities : tracks
+  users ||--o{ git_activities : commits
+  tasks |o--o{ git_activities : "linked to"
+  projects ||--o{ peer_evaluations : "rated within"
+  users ||--o{ peer_evaluations : "evaluator / evaluatee"
+  projects ||--o{ risk_assessments : "scored by"
+  projects ||--o{ risk_events : raises
+  milestones |o--o{ risk_events : "overdue event"
+  projects ||--o{ similarity_reviews : "compared in"
+  projects ||--o| project_embeddings : "embedded as"
+
+  users { bigint user_id PK
+          text email UK
+          text password_hash "bcrypt"
+          text full_name
+          bigint department_id FK
+          text enrollment_no UK
+          boolean is_active }
+  roles { smallint role_id PK
+          text role_name UK "student|faculty|reviewer|coordinator|admin" }
+  user_roles { bigint user_id PK,FK
+               smallint role_id PK,FK }
+  departments { bigint department_id PK
+                text name UK
+                text code UK }
+  courses { bigint course_id PK
+            bigint department_id FK
+            text code UK
+            text semester
+            text academic_year }
+  teams { bigint team_id PK
+          bigint course_id FK
+          text name "UQ(course_id,name)" }
+  team_members { bigint team_id PK,FK
+                 bigint user_id PK,FK
+                 text member_role "leader|member"
+                 text responsibility }
+  projects { bigint project_id PK
+             bigint team_id FK,UK
+             bigint course_id FK
+             text title
+             text abstract
+             text problem_statement
+             text_arr objectives
+             text scope
+             text_arr technologies
+             text repository_url
+             text status
+             date start_date
+             date end_date
+             tsvector search_tsv "generated" }
+  guide_allocations { bigint allocation_id PK
+                      bigint project_id FK
+                      bigint guide_id FK
+                      text allocation_role "guide|reviewer"
+                      boolean is_active }
+  milestones { bigint milestone_id PK
+               bigint project_id FK
+               int sequence_no "UQ(project_id,seq)"
+               date due_date
+               text status
+               numeric weight "0-100"
+               text required_evidence_type }
+  tasks { bigint task_id PK
+          bigint milestone_id FK
+          text title
+          text status
+          text priority
+          date due_date
+          timestamptz completed_at }
+  task_assignments { bigint task_id PK,FK
+                     bigint user_id PK,FK
+                     numeric hours_logged }
+  deliverables { bigint deliverable_id PK
+                 bigint milestone_id FK,UK
+                 text document_type
+                 int current_version_no }
+  document_versions { bigint version_id PK
+                      bigint deliverable_id FK
+                      int version_no "UQ(deliverable,version)"
+                      text checksum
+                      text mongo_version_id "-> MongoDB" }
+  reviews { bigint review_id PK
+            bigint milestone_id FK
+            bigint reviewer_id FK
+            text decision
+            numeric score
+            jsonb rubric }
+  feedback_items { bigint feedback_id PK
+                   bigint project_id FK
+                   bigint milestone_id FK
+                   bigint review_id FK
+                   bigint author_id FK
+                   bigint assigned_to FK
+                   text severity
+                   text status }
+  contribution_evidence { bigint evidence_id PK
+                          bigint project_id FK
+                          bigint user_id FK
+                          bigint task_id FK
+                          text evidence_type
+                          numeric weight }
+  git_activities { bigint activity_id PK
+                   bigint project_id FK
+                   bigint user_id FK
+                   bigint task_id FK
+                   text commit_sha "UQ(project,sha)" }
+  peer_evaluations { bigint evaluation_id PK
+                     bigint project_id FK
+                     bigint evaluator_id FK
+                     bigint evaluatee_id FK
+                     smallint rating "1-5" }
+  risk_assessments { bigint risk_id PK
+                     bigint project_id FK
+                     numeric risk_score "0-100"
+                     text risk_level
+                     jsonb factors }
+  risk_events { bigint event_id PK
+                bigint project_id FK
+                bigint milestone_id FK
+                text event_type
+                timestamptz resolved_at }
+  similarity_reviews { bigint similarity_id PK
+                       bigint project_id FK
+                       bigint matched_project_id FK
+                       numeric similarity_score
+                       text decision }
+  project_embeddings { bigint project_id PK,FK
+                       vector_384 embedding "HNSW cosine"
+                       text model
+                       text source_text }
+  course_required_documents { bigint course_id PK,FK
+                              text document_type PK }
+  audit_logs { bigint audit_id PK
+               text table_name
+               text record_id
+               text action
+               jsonb old_data
+               jsonb new_data
+               bigint changed_by }
