@@ -4,10 +4,10 @@
 
 | | |
 |---|---|
-| Team members | **Member 1:** _‹name, SRN›_ · **Member 2:** _‹name, SRN›_ |
+| Team members | **Member 1:** Tarun Gowda P (PES1UG24303) · **Member 2:** Aryaman D K (PES1UG24AM344) |
 | Domain | Education Technology / Academic Project Management |
 | Stack | Next.js 15 (App Router + Route Handlers) · PostgreSQL 16 · pgvector · MongoDB 7/8 · Git/GitHub |
-| Repository | _‹GitHub URL›_ |
+| Repository | https://github.com/AryamanDK07/project-pulse |
 
 **Contents:**
 1. [Problem statement](#1-problem-statement)
@@ -336,8 +336,8 @@ Test cases promised in the proposal, and where they are covered:
 ## 16. Individual contribution
 | Member | Primary ownership | Cross-contribution |
 |---|---|---|
-| Member 1 — _‹name›_ | ER diagram, relational schema, DDL and migrations, constraints, indexes, views, triggers, stored functions, SQL queries, DB tests, seed data | API routes, integration testing, documentation |
-| Member 2 — _‹name›_ | Next.js interface, authentication/authorisation, MongoDB document model, pgvector semantic search, dashboards, API tests | PostgreSQL schema work, DML/API integration, documentation |
+| Member 1 — Tarun Gowda P (PES1UG24303) | ER diagram, relational schema, DDL and migrations, constraints, indexes, views, triggers, stored functions, SQL queries, DB tests, seed data | API routes, integration testing, documentation |
+| Member 2 — Aryaman D K (PES1UG24AM344) | Next.js interface, authentication/authorisation, MongoDB document model, pgvector semantic search, dashboards, API tests | PostgreSQL schema work, DML/API integration, documentation |
 
 The commit history on GitHub (`git log --author`) shows each member's work. See the README section "Working as a team".
 
