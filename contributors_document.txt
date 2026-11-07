@@ -1,0 +1,14 @@
+# Project Contributors
+
+Add your name and GitHub username below to register your contribution to Project Pulse.
+
+- Name: TARUN GOWDA P
+- GitHub: Tarungowdap
+- Date: 2026-11-07
+- Contribution: Project setup and documentation update
+
+
+- Name: ARYAMAN DK
+- GitHub: -
+- Date: 2026-11-07
+- Contribution: Project setup and documentation update
