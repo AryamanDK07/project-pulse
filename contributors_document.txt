@@ -3,12 +3,17 @@
 Add your name and GitHub username below to register your contribution to Project Pulse.
 
 - Name: TARUN GOWDA P
+- SRN: PES1UG24AM303
 - GitHub: Tarungowdap
 - Date: 2026-11-07
-- Contribution: Project setup and documentation update
+- Contribution: ER diagram, relational schema, DDL and migrations, constraints, indexes, views, triggers,
+  stored functions, SQL queries, database tests, seed data; supported API routes, integration testing
+  and documentation
 
 
-- Name: ARYAMAN DK
-- GitHub: -
+- Name: ARYAMAN D K
+- SRN: PES1UG24AM344
+- GitHub: AryamanDK07
 - Date: 2026-11-07
-- Contribution: Project setup and documentation update
+- Contribution: Next.js interface, authentication/authorisation, MongoDB document model, pgvector semantic
+  search, dashboards, API tests; supported PostgreSQL schema work, DML/API integration and documentation

@@ -21,7 +21,7 @@ You need three things installed once:
 
 ### First time (about 5 minutes)
 ```bash
-git clone <this-repo-url> project-pulse
+git clone https://github.com/AryamanDK07/project-pulse project-pulse
 cd project-pulse
 npm install
 docker compose up -d          # starts PostgreSQL+pgvector (port 5433) and MongoDB (port 27017)
